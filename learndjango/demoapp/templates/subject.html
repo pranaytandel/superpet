@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <h1>Subjects</h1>
+        {% for i in subjects%}
+
+           <p> counter ::{{forloop.counter}}</p>
+           <p>counter0 :: {{forloop.counter0}}</p>
+           <p>counter :: {{forloop.revcounter}}</p>
+           <p>counter :: {{forloop.revcounter0}}</p>
+           <p>Is it first elements??{{forloop.first}}</p>
+           <p>Is it last elemnets// {{forloop.last}}</p>
+           
+
+           {%if forloop.first%}
+             <li style=" color:red">{{i}}</li>
+
+           {%else %}
+              <li style="color:rgb(12, 238, 16)">{{i}}</li>
+
+           {%endif%}
+           
+           <hr>
+
+        {%endfor%}
+    </ul>
+
+    <hr>
+
+    <a href="http://127.0.0.1:8000/comment/">Click here to go comment page</a>
+    <br>
+    <a href="{% url 'comment'%}">comment page</a>
+    <br>
+
+    <a href="{% url 'aboutus'%}">aboutus</a>
+    <br>
+    <a href="{% url 'contact'%}">contact</a>
+    <br>
+    <a href="{% url 'homepage' %}">home page</a>
+
+
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+
+{% extends 'base.html'%}
+
+{% load custom_filters %}
+
+
+{% block content%}
+
+<p> total : {{total|multiply:8000}}</p>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+
+
+  <div class="col">
+
+{% for cartitem in cartitems %} 
+
+   <div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{cartitem.product.product_picture.url}}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{cartitem.product.product_name}}</h5>
+          <p class="card-text">Price:{{cartitem.product.product_price}}</p>
+          <p class="card-text"><small class="text-muted">{{cartitem.quantity}}</small></p>
+
+          <form action="{% url 'update-quantity' cartitem.id %}">
+
+            <button type="button" onclick="updateQuantity(-1,{{cartitem.id}})">-</button>
+            <input type="number" name="quantity" id="quantity{{cartitem.id}}" value={{cartitem.quantity}}>
+            <button type="button" onclick="updateQuantity(+1,{{cartitem.id}})">+</button>
+            <button type="submit">Update</button>
+          </form>
+
+
+          <a class="btn btn-danger" href="{% url 'remove-from-cart' cartitem.id %}" role="button">Remove</a>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+   
+   {% endfor%}
+</div>
+<div class="col">
+   <table border="2" cellpadding="20">
+    <tr>
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </tr>
+    {% for cartitem in cartitems %}
+    <tr>
+      <td>{{cartitem.product.product_name}}</td>
+      <td>{{cartitem.product.product_price}}</td>
+      <td>{{cartitem.quantity}}</td>
+      <td>{{cartitem.product.product_price|multiply:cartitem.quantity}}</td>
+    </tr>
+  
+   
+   {% endfor%}
+  </table>
+
+
+   <h1 class="bg-warning text-white p-3 w-50">total:{{total}}</h1>
+   <a class="btn btn-primary" href="{% url 'checkout' %}" role="button">checkout</a>
+   
+
+  </div>
+
+{% endblock %}
